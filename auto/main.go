@@ -1,4 +1,4 @@
-package auto
+package main
 
 import "fmt"
 
@@ -76,76 +76,110 @@ func (d CMDDimensions) Height() Unit {
 	return d.HeightUnit
 }
 
-type BMW struct{}
+type Car struct {
+	BrandName      string
+	ModelName      string
+	DimensionsVal  Dimensions
+	MaxSpeedVal    int
+	EnginePowerVal int
+}
 
-func (b BMW) Brand() string {
-	return "BMW"
+func (c Car) Brand() string {
+	return c.BrandName
 }
-func (b BMW) Model() string {
-	return "F10"
+func (c Car) Model() string {
+	return c.ModelName
 }
-func (b BMW) Dimensions() Dimensions {
-	return CMDDimensions{
-		LengthUnit: Unit{Value: 200, T: CM},
-		WidthUnit:  Unit{Value: 65, T: CM},
-		HeightUnit: Unit{Value: 68, T: CM},
+func (c Car) Dimensions() Dimensions {
+	return c.DimensionsVal
+}
+func (c Car) MaxSpeed() int {
+	return c.MaxSpeedVal
+}
+func (c Car) EnginePower() int {
+	return c.EnginePowerVal
+}
+
+type carDimensions struct {
+	LengthUnit Unit
+	WidthUnit  Unit
+	HeightUnit Unit
+}
+
+func (d carDimensions) Length() Unit {
+	return d.LengthUnit
+}
+func (d carDimensions) Width() Unit {
+	return d.WidthUnit
+}
+func (d carDimensions) Height() Unit {
+	return d.HeightUnit
+}
+
+type BMW struct {
+	Car
+}
+
+func NewBMW() *BMW {
+	return &BMW{
+		Car: Car{
+			BrandName: "BMW",
+			ModelName: "F10",
+			DimensionsVal: carDimensions{
+				LengthUnit: Unit{Value: 200, T: CM},
+				WidthUnit:  Unit{Value: 65, T: CM},
+				HeightUnit: Unit{Value: 68, T: CM},
+			},
+			MaxSpeedVal:    250,
+			EnginePowerVal: 440,
+		},
 	}
 }
-func (b BMW) MaxSpeed() int {
-	return 250
-}
-func (b BMW) EnginePower() int {
-	return 440
+
+type Mercedes struct {
+	Car
 }
 
-type Mercedes struct{}
-
-func (m Mercedes) Brand() string {
-	return "Mercedes"
-}
-func (m Mercedes) Model() string {
-	return "E-Class"
-}
-func (m Mercedes) Dimensions() Dimensions {
-	return CMDDimensions{
-		LengthUnit: Unit{Value: 200, T: CM},
-		WidthUnit:  Unit{Value: 65, T: CM},
-		HeightUnit: Unit{Value: 68, T: CM},
+func NewMercedes() *Mercedes {
+	return &Mercedes{
+		Car: Car{
+			BrandName: "Mercedes",
+			ModelName: "E-Class",
+			DimensionsVal: carDimensions{
+				LengthUnit: Unit{Value: 200, T: CM},
+				WidthUnit:  Unit{Value: 65, T: CM},
+				HeightUnit: Unit{Value: 68, T: CM},
+			},
+			MaxSpeedVal:    180,
+			EnginePowerVal: 300,
+		},
 	}
 }
-func (m Mercedes) MaxSpeed() int {
-	return 180
-}
-func (m Mercedes) EnginePower() int {
-	return 300
+
+type Dodge struct {
+	Car
 }
 
-type Dodge struct{}
-
-func (d Dodge) Brand() string {
-	return "Dodge"
-}
-func (d Dodge) Model() string {
-	return "Charger"
-}
-func (d Dodge) Dimensions() Dimensions {
-	return InchesDimensions{
-		LengthUnit: Unit{Value: 200, T: Inch},
-		WidthUnit:  Unit{Value: 80, T: Inch},
-		HeightUnit: Unit{Value: 60, T: Inch},
+func NewDodge() *Dodge {
+	return &Dodge{
+		Car: Car{
+			BrandName: "Dodge",
+			ModelName: "Charger",
+			DimensionsVal: carDimensions{
+				LengthUnit: Unit{Value: 200, T: Inch},
+				WidthUnit:  Unit{Value: 80, T: Inch},
+				HeightUnit: Unit{Value: 60, T: Inch},
+			},
+			MaxSpeedVal:    200,
+			EnginePowerVal: 370,
+		},
 	}
-}
-func (d Dodge) MaxSpeed() int {
-	return 200
-}
-func (d Dodge) EnginePower() int {
-	return 370
 }
 
 func main() {
-	bmw := BMW{}
-	mercedes := Mercedes{}
-	dodge := Dodge{}
+	bmw := NewBMW()
+	mercedes := NewMercedes()
+	dodge := NewDodge()
 
 	fmt.Println("BMW Dimensions (CM): ", bmw.Dimensions())
 	fmt.Println("Mercedes Dimensions (CM): ", mercedes.Dimensions())
