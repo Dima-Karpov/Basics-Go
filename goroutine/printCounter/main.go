@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"sync"
 	"time"
 )
@@ -32,7 +33,7 @@ func printCounter() {
 func main() {
 	var n int
 	fmt.Print("Введите количество секунд для выполнения программы: ")
-	fmt.Scan(&n)
+	fmt.Fscan(os.Stdin, &n)
 
 	go incrementCounter()
 	go printCounter()
