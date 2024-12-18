@@ -20,7 +20,7 @@ func factorialRecursive(n int) int {
 }
 
 func main() {
-	n := 4
+	n := 3
 
 	fmt.Printf("Факториал числа %d (итеративный) %d\n", n, factorialIterative(n))
 	fmt.Printf("Факториал числа %d (рекурсивный) %d\n", n, factorialRecursive(n))
