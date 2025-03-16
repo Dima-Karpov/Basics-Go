@@ -12,10 +12,9 @@ func archiveString(input string) string {
 	for i := 1; i < len(input); i++ {
 		if input[i] == input[i-1] {
 			count++
-		} else {
-			archived += string(input[i-1]) + strconv.Itoa(count)
-			count = 1
 		}
+		archived += string(input[i-1]) + strconv.Itoa(count)
+		count = 1
 	}
 	archived += string(input[len(input)-1]) + strconv.Itoa(count)
 
